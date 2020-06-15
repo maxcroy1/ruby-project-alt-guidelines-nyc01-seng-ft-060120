@@ -39,7 +39,7 @@ IDEA: Max & Adam's Karaoke CLI App
         - Exit
 
 
-3) ERD: https://lyricsovh.docs.apiary.io/#reference/0/lyrics-of-a-song/search?console=1
+3) ERD: https://www.dropbox.com/s/iyoj4274f0t4ufk/Mod%201%20Project%20ERD.png?dl=0
 
 4) Relevant information to APIs we might use: No auth required - however query process is pretty clunky. Will be unable to show multiple results & will need artist AND song title to return a result. 
 
