@@ -5,7 +5,6 @@ MINIMUM REQUIREMENTS:
 3) Has a CLI that allows users to interact with your database as defined by your user stories (CRUD)
 4) Uses good OO design patterns. You should have separate models for your runner and CLI interface
 =====================================
-
 IDEA:
 
 1) User Stories
@@ -19,3 +18,4 @@ IDEA:
 3) ERD: Will attach once completed
 
 4) Relevant information to APIs we might use: 
+=====================================
