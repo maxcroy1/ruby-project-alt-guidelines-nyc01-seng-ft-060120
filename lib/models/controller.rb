@@ -57,21 +57,12 @@ class Controller
 
     def main_menu
         choice = prompt.select("What would you like to do?") do |menu|
-            menu.choice "Search For A Song", -> { self.search }
+            menu.choice "Search For A Song", -> { Song.search }
             menu.choice "See Your Collection", -> { self.collection }
             menu.choice "Have Some Fun", -> { self.funfunfun }
             menu.choice "Exit"
         end
     end
 
-    def search
-        puts "Please enter the artist of the song you would like to sing:"
-        artist = gets.chomp
-        puts "Please enter the title of the song you would like to sing:"
-        title = gets.chomp
-        new_song = Song.create(artist: artist, title: title)
-        new_song.find_lyrics
-        puts new_song.lyrics
-    end
 
 end 
