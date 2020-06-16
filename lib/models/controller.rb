@@ -26,6 +26,9 @@ class Controller
         else #if username is new/unique
             User.create(username: user_name) #create new user and save to database
             puts "Let's get musical, #{user_name}!"
+            sleep 2
+            system "clear"
+            self.main_menu
         end
     end 
 
@@ -34,16 +37,41 @@ class Controller
         user_name = gets.chomp #collect username 
         if User.names.include? (user_name) #if name given is in array of names 
             puts "Let's get musical, #{user_name}!" #login
+            sleep 2
+            system "clear"
+            self.main_menu
         else #if there is no user with that name 
             puts "That name is invalid."
             choice = prompt.yes?("Would you like to register a new account with that name?")
             if choice #if they select yes to registering a new account 
                 User.create(username: user_name) #create new user and save to database
                 puts "Let's get musical, #{user_name}!"
+                sleep 2
+                system "clear"
+                self.main_menu
             else #if they select no to registering a new account
                 self.login #go back to start of login 
             end
         end
     end 
+
+    def main_menu
+        choice = prompt.select("What would you like to do?") do |menu|
+            menu.choice "Search For A Song", -> { self.search }
+            menu.choice "See Your Collection", -> { self.collection }
+            menu.choice "Have Some Fun", -> { self.funfunfun }
+            menu.choice "Exit"
+        end
+    end
+
+    def search
+        puts "Please enter the artist of the song you would like to sing:"
+        artist = gets.chomp
+        puts "Please enter the title of the song you would like to sing:"
+        title = gets.chomp
+        new_song = Song.create(artist: artist, title: title)
+        new_song.find_lyrics
+        puts new_song.lyrics
+    end
 
 end 
