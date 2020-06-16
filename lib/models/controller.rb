@@ -20,7 +20,7 @@ class Controller
     def main_menu
         choice = prompt.select("What would you like to do, #{self.user.username}?") do |menu|
             menu.choice "Search For A Song", -> { self.search }
-            menu.choice "See Your Collection", -> { self.user.collection }
+            menu.choice "See Your Collection", -> { self.collection }
             menu.choice "Have Some Fun", -> { self.funfunfun }
             menu.choice "Exit"
         end
@@ -63,7 +63,23 @@ class Controller
     def unfavorite
         Favorite.unfavorite(user.id, current_song.id)
         puts "This song has been removed from your favorites."
+        sleep 2 
+        system "clear"
         self.song_menu
+    end 
+
+    def collection 
+        favorites_list = Favorite.where(user_id: user.id).pluck(:song_id) #return all song instances saved associated with user id 
+        favorite_ids = Song.select{|song| favorites_list.include?(song.id)}
+        favorite_songs = favorite_ids.map {|song| song.title}
+        favorite_songs << "Exit"
+        selection = prompt.select("Choose a song from your favorites below:", favorite_songs)
+        if selection == "Exit"
+            self.main_menu
+        else 
+            @current_song = Song.find_by(title: selection)
+            self.favorites_menu
+        end
     end 
 
 
