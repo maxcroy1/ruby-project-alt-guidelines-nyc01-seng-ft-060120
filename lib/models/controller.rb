@@ -44,5 +44,27 @@ class Controller
         self.song_menu
     end
 
+    def favorite
+        Favorite.create(user_id: user.id, song_id: current_song.id)
+        puts "You've added this song to your Favorites."
+        sleep 2
+        system "clear"
+        self.favorites_menu
+    end
+
+    def favorites_menu
+        prompt.select("What would you like to do with the song #{current_song.title} by #{current_song.artist}?") do |menu|
+            menu.choice "Sing This Song", -> { self.sing_song }
+            menu.choice "Unfavorite This Song", -> { self.unfavorite }
+            menu.choice "Back to Main Menu", -> { self.main_menu }
+        end
+    end
+
+    def unfavorite
+        Favorite.unfavorite(user.id, current_song.id)
+        puts "This song has been removed from your favorites."
+        self.song_menu
+    end 
+
 
 end 
