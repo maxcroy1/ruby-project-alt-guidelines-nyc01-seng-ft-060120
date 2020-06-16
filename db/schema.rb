@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2020_06_16_132229) do
 
-  create_table "collections", force: :cascade do |t|
+  create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "song_id"
   end

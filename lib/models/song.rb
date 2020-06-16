@@ -1,16 +1,11 @@
 class Song < ActiveRecord::Base
-    belongs_to :collection 
-    has_many :users, through: :collection
+    has_many :favorites 
+    has_many :users, through: :favorites
 
     attr_accessor :prompt
 
     def menu
-        @prompt = TTY::Prompt.new
-        prompt.select("What would you like to do with the song #{self.title} by #{self.artist}?") do |menu|
-            menu.choice "Sing This Song", -> { self.sing_song }
-            menu.choice "Save This Song To Your Collection", -> {  }
-            menu.choice "Back to Main Menu", -> { Controller.main_menu }
-        end
+        
     end
 
     def sing_song          
@@ -19,6 +14,11 @@ class Song < ActiveRecord::Base
             puts lyrics_array[i]
             sleep 2
         end
+        puts "=========YOU SOUND GREAT!========="
+    end
+
+    def favorite
+        Favorite.create(user)
     end
 
     def self.search
@@ -27,7 +27,8 @@ class Song < ActiveRecord::Base
         puts "Please enter the title of the song you would like to sing:"
         title = gets.chomp
         # new_song = Song.create(artist: artist, title: title)
-        Song.find_lyrics(artist, title)
+        new_song = Song.find_lyrics(artist, title)
+        new_song
     end
 
     def self.find_lyrics(artist, title)
@@ -42,9 +43,7 @@ class Song < ActiveRecord::Base
         else
             body = JSON.parse(lyrics)
             lyrics_array = body["lyrics"]
-            new_song = Song.create(artist: artist, title: title, lyrics: lyrics_array)
-            binding.pry
-            new_song.menu
+            Song.create(artist: artist, title: title, lyrics: lyrics_array)
         end
     end
 end 
