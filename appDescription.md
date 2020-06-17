@@ -50,7 +50,7 @@ NEXT STEPS:
 1) Clean up user input! || DONE!
     - Be able to handle capitalization etc.
 
-2) Have some fun method
+2) Have some fun method || DONE!
     - Randomly select classmate
     - Choose a random song for them to sing
 

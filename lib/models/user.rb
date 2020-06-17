@@ -2,6 +2,31 @@ class User < ActiveRecord::Base
     has_many :favorites
     has_many :songs, through: :favorites
 
+    attr_reader :queue
+
+    def create_queue
+        @queue = []
+    end
+
+    def add_song_to_queue(song)
+        if queue
+            @queue << song
+        else
+            self.create_queue
+            @queue << song
+        end
+    end
+
+    def remove_song_from_queue(song)
+        index = queue.index(song)
+        queue.delete_at(index)
+    end
+
+    def new_queue_position(song, new_position)
+        index = queue.index(song)
+        queue[new_position], queue[index] = queue[index], queue[new_position]
+    end
+
     def self.login 
         puts "Enter your username"
         user_name = gets.chomp #collect username 

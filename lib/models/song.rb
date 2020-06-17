@@ -35,9 +35,9 @@ class Song < ActiveRecord::Base
 
     def self.search
         puts "Please enter the artist of the song you would like to sing:"
-        artist = gets.chomp.gsub(/(?<foo>['"''<''>''#''%''{''}''|''^''-''['']''`'])/,"").gsub(/&/, 'and').gsub(/ /, '_')
+        artist = self.convert_for_save(gets.chomp)
         puts "Please enter the title of the song you would like to sing:"
-        title = gets.chomp.gsub(/(?<foo>['"''<''>''#''%''{''}''|''^''-''['']''`'])/,"").gsub(/&/, 'and').gsub(/ /, '_')
+        title = self.convert_for_save(gets.chomp)
         # new_song = Song.create(artist: artist, title: title)
         if Song.find_by(artist: artist, title: title)
             new_song = Song.find_by(artist: artist, title: title)
@@ -45,6 +45,10 @@ class Song < ActiveRecord::Base
             new_song = Song.find_lyrics(artist, title)
         end
         new_song
+    end
+
+    def self.convert_for_save(string)
+        string.downcase.gsub(/(?<foo>['"''<''>''#''%''{''}''|''^''-''['']''`'])/,"").gsub(/&/, 'and').gsub(/ /, '_')
     end
 
 end 
