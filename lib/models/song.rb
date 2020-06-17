@@ -4,8 +4,8 @@ class Song < ActiveRecord::Base
 
     attr_accessor :prompt
 
-    def menu
-        
+    def favorite
+        Favorite.create(user)
     end
 
     def sing_song          
@@ -15,20 +15,6 @@ class Song < ActiveRecord::Base
             sleep 2
         end
         puts "=========YOU SOUND GREAT!========="
-    end
-
-    def favorite
-        Favorite.create(user)
-    end
-
-    def self.search
-        puts "Please enter the artist of the song you would like to sing:"
-        artist = gets.chomp
-        puts "Please enter the title of the song you would like to sing:"
-        title = gets.chomp
-        # new_song = Song.create(artist: artist, title: title)
-        new_song = Song.find_lyrics(artist, title)
-        new_song
     end
 
     def self.find_lyrics(artist, title)
@@ -46,4 +32,19 @@ class Song < ActiveRecord::Base
             Song.create(artist: artist, title: title, lyrics: lyrics_array)
         end
     end
+
+    def self.search
+        puts "Please enter the artist of the song you would like to sing:"
+        artist = gets.chomp
+        puts "Please enter the title of the song you would like to sing:"
+        title = gets.chomp
+        # new_song = Song.create(artist: artist, title: title)
+        if Song.find_by(artist: artist, title: title)
+            new_song = Song.find_by(artist: artist, title: title)
+        else
+            new_song = Song.find_lyrics(artist, title)
+        end
+        new_song
+    end
+
 end 
