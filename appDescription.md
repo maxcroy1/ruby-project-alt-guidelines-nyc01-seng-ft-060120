@@ -54,7 +54,7 @@ NEXT STEPS:
     - Randomly select classmate
     - Choose a random song for them to sing
 
-3) Be able to type out what you're looking for when presented with favorites
+3) Be able to type out what you're looking for when presented with favorites || DONE! 
 
 4) Queue
     - Add a song to the queue
