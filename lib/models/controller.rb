@@ -38,6 +38,14 @@ class Controller
         string.sub(/ /, "_")
     end
 
+    def read_queue
+        puts "Your queue is:"
+        for i in 1..user.queue.length
+            puts "#{i}. #{convert_for_user(user.queue[i - 1].title)} by #{convert_for_user(user.queue[i - 1].artist)}"
+        end
+        self.queue_menu
+    end
+
     def favorite
         Favorite.create(user_id: user.id, song_id: current_song.id)
         puts "You've added this song to your Favorites."
@@ -126,13 +134,13 @@ class Controller
     end
 
     def play_queue
+        progression = 0
         for i in 0...user.queue.length
-            @current_song = user.queue[i]
-            system "clear"
             puts "Next up is #{convert_for_user(current_song.title)} by #{convert_for_user(current_song.artist)}"
             sleep 2
             choice = prompt.select("Are you ready?") do |menu|
                 menu.choice "Play Song"
+                menu.choice "Skip Song"
                 menu.choice "Exit to Main Menu"
             end
             if choice == "Play Song"
@@ -145,12 +153,17 @@ class Controller
                 puts "========================"
                 sleep 1
                 current_song.sing_song
+                progression += 1
                 sleep 2
+            elsif choice == "Skip Song"
+                progression += 1
             else
-                system "clear"
-                self.main_menu
+                break
             end
         end
+        puts "Your Session Is Over"
+        user.queue.slice!(0, progression)
+        system "clear"
         self.main_menu
     end
 
@@ -162,7 +175,7 @@ class Controller
         else
             choice = prompt.select("Would you like to...") do |menu|
                 menu.choice "Play your Queue", -> { self.play_queue }
-                menu.choice "Edit your Queue", -> { self.edit_queue }
+                menu.choice "See your Queue", -> { self.read_queue }
                 menu.choice "Back to Main Menu", -> { self.main_menu }
             end
         end
@@ -184,6 +197,7 @@ class Controller
     end
 
     def song_menu
+        system "clear"
         prompt.select("What would you like to do with the song #{convert_for_user(current_song.title)} by #{convert_for_user(current_song.artist)}?") do |menu|
             menu.choice "Sing This Song", -> { self.sing_song }
             menu.choice "Favorite This Song", -> { self.favorite }

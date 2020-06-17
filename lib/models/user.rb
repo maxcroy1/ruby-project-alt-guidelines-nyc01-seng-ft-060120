@@ -17,16 +17,6 @@ class User < ActiveRecord::Base
         end
     end
 
-    def remove_song_from_queue(song)
-        index = queue.index(song)
-        queue.delete_at(index)
-    end
-
-    def new_queue_position(song, new_position)
-        index = queue.index(song)
-        queue[new_position], queue[index] = queue[index], queue[new_position]
-    end
-
     def self.login 
         puts "Enter your username"
         user_name = gets.chomp #collect username 
