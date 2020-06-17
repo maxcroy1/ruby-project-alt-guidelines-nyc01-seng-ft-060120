@@ -6,13 +6,15 @@ controller_instance = Controller.new()
 logged_in_user = controller_instance.greeting()
 
 #Until a user is logged in, stay in this loop
-until !logged_in_user.nil?
-    sleep 2
+if !logged_in_user.nil?
     system "clear"
-    theUserChoice = controller_instance.greetings()
+    #Set current user to the user instance that is logged in
+    controller_instance.user = logged_in_user
+    #Begin the session at the main menu
+    controller_instance.main_menu
 end
 
-#Set current user to the user instance that is logged in
-controller_instance.user = logged_in_user
-#Begin the session at the main menu
-controller_instance.main_menu
+
+
+
+
