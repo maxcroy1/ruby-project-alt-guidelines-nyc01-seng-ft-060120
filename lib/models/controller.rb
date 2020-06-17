@@ -99,6 +99,7 @@ class Controller
     end 
 
     def greeting #instance method 
+        system "clear"
         puts "Welcome to CLI Karaoke!" 
         choice = prompt.select("What would you like to do?", %w(Register Login Exit))
         if choice == "Register" #register a new user 
@@ -161,14 +162,15 @@ class Controller
                 break
             end
         end
-        puts "Your Session Is Over"
         user.queue.slice!(0, progression)
         system "clear"
+        puts "Your Session Is Over"
+        sleep_n_clear
         self.main_menu
     end
 
     def queue_menu
-        if !user.queue
+        if !user.queue || user.queue.length == 0
             puts "There are no songs in your queue"
             sleep_n_clear
             self.main_menu
