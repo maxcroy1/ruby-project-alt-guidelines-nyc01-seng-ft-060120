@@ -6,7 +6,7 @@ class Controller
         favorite_ids = Song.select{|song| favorites_list.include?(song.id)}
         favorite_songs = favorite_ids.map {|song| "#{song.title.titleize.sub(/_/, " ")} by #{song.artist.titleize.sub(/_/, " ")}"}
         favorite_songs << "Exit"
-        selection = prompt.select("Choose a song from your favorites below:", favorite_songs)
+        selection = prompt.select("Choose a song from your favorites below:", favorite_songs, filter: true)
         if selection == "Exit"
             self.main_menu
         else 
@@ -31,6 +31,42 @@ class Controller
             menu.choice "Back to Main Menu", -> { self.main_menu }
         end
     end
+
+    def funfunfun
+        instructors = ["Andrew", "Eric", "Tashawn", "Jeffrey"]
+        puts "The lucky participant is..."
+        sleep 8
+        lucky_instructor = instructors[rand(instructors.length)]
+        puts "#{lucky_instructor}!!!!!!!"
+        sleep 3
+        puts "And they will be singing...."
+        sleep 3
+        surprise_song = Song.find(rand(Song.count))
+        puts "#{surprise_song.title.titleize.sub(/_/, " ")} by #{surprise_song.artist.titleize.sub(/_/, " ")}!!!!!!!"
+        choice = prompt.yes?("Are you ready, #{lucky_instructor}?")
+        if choice 
+            puts "3..."
+            sleep 1 
+            puts "2..."
+            sleep 1 
+            puts "1..."
+            sleep 1 
+            puts "=====GET SINGIN====="
+            surprise_song.sing_song
+        else 
+            puts "Too bad...."
+            sleep 2
+            puts "3..."
+            sleep 1 
+            puts "2..."
+            sleep 1 
+            puts "1..."
+            sleep 1 
+            puts "=====GET SINGIN====="
+            surprise_song.sing_song
+        end 
+        self.main_menu
+    end 
 
     def greeting #instance method 
         puts "Welcome to CLI Karaoke!" 

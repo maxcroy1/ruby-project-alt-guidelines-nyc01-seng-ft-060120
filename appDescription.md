@@ -50,11 +50,11 @@ NEXT STEPS:
 1) Clean up user input! || DONE!
     - Be able to handle capitalization etc.
 
-2) Have some fun method
+2) Have some fun method || DONE! 
     - Randomly select classmate
     - Choose a random song for them to sing
 
-3) Be able to type out what you're looking for when presented with favorites
+3) Be able to type out what you're looking for when presented with favorites || DONE! 
 
 4) Queue
     - Add a song to the queue
