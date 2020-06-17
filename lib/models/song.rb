@@ -35,9 +35,9 @@ class Song < ActiveRecord::Base
 
     def self.search
         puts "Please enter the artist of the song you would like to sing:"
-        artist = gets.chomp
+        artist = gets.chomp.gsub(/(?<foo>['"''<''>''#''%''{''}''|''^''-''['']''`'])/,"").gsub(/&/, 'and').gsub(/ /, '_')
         puts "Please enter the title of the song you would like to sing:"
-        title = gets.chomp
+        title = gets.chomp.gsub(/(?<foo>['"''<''>''#''%''{''}''|''^''-''['']''`'])/,"").gsub(/&/, 'and').gsub(/ /, '_')
         # new_song = Song.create(artist: artist, title: title)
         if Song.find_by(artist: artist, title: title)
             new_song = Song.find_by(artist: artist, title: title)

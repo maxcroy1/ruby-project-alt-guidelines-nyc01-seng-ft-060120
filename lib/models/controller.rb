@@ -4,7 +4,7 @@ class Controller
     def collection 
         favorites_list = Favorite.where(user_id: user.id).pluck(:song_id) #return all song instances saved associated with user id 
         favorite_ids = Song.select{|song| favorites_list.include?(song.id)}
-        favorite_songs = favorite_ids.map {|song| "#{song.title} by #{song.artist}"}
+        favorite_songs = favorite_ids.map {|song| "#{song.title.titleize.sub(/_/, " ")} by #{song.artist.titleize.sub(/_/, " ")}"}
         favorite_songs << "Exit"
         selection = prompt.select("Choose a song from your favorites below:", favorite_songs)
         if selection == "Exit"
@@ -25,7 +25,7 @@ class Controller
     end
 
     def favorites_menu
-        prompt.select("What would you like to do with the song #{current_song.title} by #{current_song.artist}?") do |menu|
+        prompt.select("What would you like to do with the song #{current_song.title.titleize.sub(/_/, " ")} by #{current_song.artist.titleize.sub(/_/, " ")}?") do |menu|
             menu.choice "Sing This Song", -> { self.sing_song_favorite }
             menu.choice "Unfavorite This Song", -> { self.unfavorite }
             menu.choice "Back to Main Menu", -> { self.main_menu }
@@ -82,7 +82,7 @@ class Controller
     end
 
     def song_menu
-        prompt.select("What would you like to do with the song #{current_song.title} by #{current_song.artist}?") do |menu|
+        prompt.select("What would you like to do with the song #{current_song.title.titleize.sub(/_/, " ")} by #{current_song.artist.titleize.sub(/_/, " ")}?") do |menu|
             menu.choice "Sing This Song", -> { self.sing_song }
             menu.choice "Favorite This Song", -> { self.favorite }
             menu.choice "Back to Main Menu", -> { self.main_menu }

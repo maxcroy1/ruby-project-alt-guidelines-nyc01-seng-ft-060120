@@ -45,3 +45,28 @@ IDEA: Max & Adam's Karaoke CLI App
 
 URL: https://lyricsovh.docs.apiary.io/#reference/0/lyrics-of-a-song/search?console=1
 =====================================
+NEXT STEPS:
+
+1) Clean up user input! || DONE!
+    - Be able to handle capitalization etc.
+
+2) Have some fun method
+    - Randomly select classmate
+    - Choose a random song for them to sing
+
+3) Be able to type out what you're looking for when presented with favorites
+
+4) Queue
+    - Add a song to the queue
+    - Begin your queue
+    - Queue method that would have next up, and more info
+
+5) Bring the music
+    - Either triggering a browser window to open with a relevant instrumental on Youtube (PREFFERED) OR triggering an instrumental to fire on Spotify
+        - New API Call
+        - How to trigger an application from a Ruby App
+
+
+
+
+
