@@ -8,12 +8,14 @@ class Controller
     end
 
     def add_favorite_to_queue
+        system "clear"
         user.add_song_to_queue(current_song)
         sleep_n_clear
         self.favorites_menu
     end
 
     def collection 
+        system "clear"
         favorites_list = Favorite.where(user_id: user.id).pluck(:song_id) #return all song instances saved associated with user id 
         favorite_ids = Song.select{|song| favorites_list.include?(song.id)}
         favorite_songs = favorite_ids.map {|song| "#{convert_for_user(song.title)} by #{convert_for_user(song.artist)}"}
@@ -24,6 +26,7 @@ class Controller
         else 
             converted_selection = selection.split(/ by /)
             @current_song = Song.find_by(title: convert_to_read(converted_selection[0]), artist: convert_to_read(converted_selection[1]))
+            system "clear"
             self.favorites_menu
         end
     end
@@ -104,6 +107,7 @@ class Controller
     end
 
     def play_queue
+        system "clear"
         progression = 0
         for i in 0...user.queue.length
             puts "Next up is #{convert_for_user(user.queue[i].title)} by #{convert_for_user(user.queue[i].artist)}"
@@ -119,6 +123,7 @@ class Controller
                 progression += 1
                 sleep 2
             elsif choice == "Skip Song"
+                system "clear"
                 progression += 1
             else
                 break
@@ -148,6 +153,7 @@ class Controller
     def search #Calls on the Song class method "search" to query our API for a song. Send user to song menu or favorites menu after successful query
         system "clear"
         @current_song = Song.search()
+        system "clear"
         self.is_favorite?
     end
 

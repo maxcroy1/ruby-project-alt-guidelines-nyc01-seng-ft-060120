@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
         puts "Enter your username"
         user_name = gets.chomp #collect username 
         if User.names.include? (user_name) #if name given is in array of names 
+            system "clear"
             puts "Let's get musical, #{user_name}!" #login
             sleep_n_clear
             User.find_by(username: user_name) #returns user instance to be tracked by Controller
@@ -41,10 +42,12 @@ class User < ActiveRecord::Base
             prompt = TTY::Prompt.new
             choice = prompt.yes?("Would you like to register a new account with that name?")
             if choice #if they select yes to registering a new account 
+                system "clear"
                 puts "Let's get musical, #{user_name}!"
                 sleep_n_clear
                 User.create(username: user_name) #create new user and return user instance to be tracked by Controller
             else #if they select no to registering a new account
+                system "clear"
                 User.login #go back to start of login 
             end
         end
