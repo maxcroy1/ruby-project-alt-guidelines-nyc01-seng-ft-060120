@@ -21,6 +21,14 @@ class User < ActiveRecord::Base
         @queue = []
     end
 
+    def read_queue(session)
+        puts "Your queue is:"
+        for i in 1..self.queue.length
+            puts "#{i}. #{convert_for_user(self.queue[i - 1].title)} by #{convert_for_user(self.queue[i - 1].artist)}"
+        end
+        session.queue_menu
+    end
+
     def self.login 
         puts "Enter your username"
         user_name = gets.chomp #collect username 

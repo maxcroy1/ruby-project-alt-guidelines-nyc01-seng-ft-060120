@@ -24,17 +24,8 @@ class Controller
         else 
             converted_selection = selection.split(/ by /)
             @current_song = Song.find_by(title: convert_to_read(converted_selection[0]), artist: convert_to_read(converted_selection[1]))
-            binding.pry
             self.favorites_menu
         end
-    end 
-
-    def read_queue
-        puts "Your queue is:"
-        for i in 1..user.queue.length
-            puts "#{i}. #{convert_for_user(user.queue[i - 1].title)} by #{convert_for_user(user.queue[i - 1].artist)}"
-        end
-        self.queue_menu
     end
 
     def favorite
@@ -168,7 +159,7 @@ class Controller
         else
             choice = prompt.select("Would you like to...") do |menu|
                 menu.choice "Play your Queue", -> { self.play_queue }
-                menu.choice "See your Queue", -> { self.read_queue }
+                menu.choice "See your Queue", -> { user.read_queue(self) }
                 menu.choice "Back to Main Menu", -> { self.main_menu }
             end
         end
