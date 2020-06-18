@@ -178,12 +178,12 @@ class Controller
     end 
 
     private
-    def convert_for_user(string)
-        string.titleize.gsub(/_/, " ")
-    end
-
     def convert_to_read(string)
         string.downcase.gsub(/ /, "_")
+    end
+
+    def convert_for_user(string)
+        string.titleize.gsub(/_/, " ")
     end
 
     def sleep_n_clear
