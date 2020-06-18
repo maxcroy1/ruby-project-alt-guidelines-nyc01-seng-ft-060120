@@ -3,14 +3,12 @@ class Controller
 
     def add_song_to_queue
         user.add_song_to_queue(current_song)
-        puts "#{convert_for_user(current_song.title)} by #{convert_for_user(current_song.artist)} has been added to your queue."
         sleep_n_clear
         self.song_menu
     end
 
     def add_favorite_to_queue
         user.add_song_to_queue(current_song)
-        puts "#{convert_for_user(current_song.title)} by #{convert_for_user(current_song.artist)} has been added to your queue."
         sleep_n_clear
         self.favorites_menu
     end

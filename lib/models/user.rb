@@ -13,9 +13,10 @@ class User < ActiveRecord::Base
             self.create_queue
             @queue << song
         end
+        puts "#{convert_for_user(song.title)} by #{convert_for_user(song.artist)} has been added to your queue."
     end
 
-    #Creates queue to store queue information
+    #Creates queue to store queue information if a queue does not exist for this session
     def create_queue
         @queue = []
     end
@@ -60,6 +61,10 @@ class User < ActiveRecord::Base
     end 
 
     private
+    def convert_for_user(string)
+        string.titleize.sub(/_/, " ")
+    end
+
     def self.sleep_n_clear
         sleep 2 #pause 
         system "clear"
