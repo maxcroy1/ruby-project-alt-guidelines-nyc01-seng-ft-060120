@@ -46,15 +46,6 @@ class Song < ActiveRecord::Base
     end
 
     private
-    def self.convert_for_save(string)
-        string.downcase.gsub(/(?<foo>['"''<''>''#''%''{''}''|''^''-''['']''`'])/,"").gsub(/&/, 'and').gsub(/ /, '_')
-    end
-
-    def sleep_n_clear
-        sleep 2
-        system "clear"
-    end
-
     def countdown
         puts "=============== READY ==============="
         sleep 2
@@ -62,6 +53,20 @@ class Song < ActiveRecord::Base
         sleep 2
         puts "================ GO ================="
         sleep 2
+    end
+
+    def sleep_n_clear
+        sleep 2
+        system "clear"
+    end
+
+    def self.convert_for_save(string)
+        string.downcase.gsub(/(?<foo>['"''<''>''#''%''{''}''|''^''-''['']''`'])/,"").gsub(/&/, 'and').gsub(/ /, '_')
+    end
+
+    def self.sleep_n_clear
+        sleep 2
+        system "clear"
     end
 
 end 

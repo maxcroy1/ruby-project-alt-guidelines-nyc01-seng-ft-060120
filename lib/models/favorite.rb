@@ -5,4 +5,5 @@ class Favorite < ActiveRecord::Base
     def self.unfavorite(user_id, song_id)
         Favorite.find_by(user_id: user_id, song_id: song_id).destroy
     end 
+    
 end 
