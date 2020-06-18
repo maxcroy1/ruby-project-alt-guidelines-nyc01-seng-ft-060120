@@ -4,17 +4,16 @@ class Song < ActiveRecord::Base
 
     attr_accessor :prompt
 
-    def favorite
-        Favorite.create(user)
-    end
-
-    def sing_song          
+    def sing_song
+        sleep_n_clear        
         lyrics_array = self.lyrics.split(/\n+/)
+        countdown
         for i in 0...lyrics_array.length
             puts lyrics_array[i]
             sleep 2
         end
-        puts "=========YOU SOUND GREAT!========="
+        puts "========= YOU SOUND GREAT! =========="
+        sleep 2
     end
 
     def self.find_lyrics(artist, title)
@@ -23,8 +22,7 @@ class Song < ActiveRecord::Base
             lyrics = RestClient.get(url)
         rescue RestClient::ExceptionWithResponse
             puts "Sorry, that song wasn't found, please search again"
-            sleep 2
-            system "clear"
+            sleep_n_clear
             Song.search
         else
             body = JSON.parse(lyrics)
@@ -47,8 +45,23 @@ class Song < ActiveRecord::Base
         new_song
     end
 
+    private
     def self.convert_for_save(string)
         string.downcase.gsub(/(?<foo>['"''<''>''#''%''{''}''|''^''-''['']''`'])/,"").gsub(/&/, 'and').gsub(/ /, '_')
+    end
+
+    def sleep_n_clear
+        sleep 2
+        system "clear"
+    end
+
+    def countdown
+        puts "=============== READY ==============="
+        sleep 2
+        puts "================ SET ================"
+        sleep 2
+        puts "================ GO ================="
+        sleep 2
     end
 
 end 

@@ -184,6 +184,7 @@ class Controller
     end
 
     def search #Calls on the Song class method "search" to query our API for a song. Send user to song menu or favorites menu after successful query
+        system "clear"
         @current_song = Song.search()
         self.is_favorite?
     end
