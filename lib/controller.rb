@@ -24,17 +24,10 @@ class Controller
         else 
             converted_selection = selection.split(/ by /)
             @current_song = Song.find_by(title: convert_to_read(converted_selection[0]), artist: convert_to_read(converted_selection[1]))
+            binding.pry
             self.favorites_menu
         end
     end 
-
-    def convert_for_user(string)
-        string.titleize.sub(/_/, " ")
-    end
-
-    def convert_to_read(string)
-        string.sub(/ /, "_")
-    end
 
     def read_queue
         puts "Your queue is:"
@@ -70,7 +63,7 @@ class Controller
         puts "And they will be singing...."
         sleep 3
         surprise_song = Song.find(rand(Song.count))
-        puts "#{surprise_song.title.titleize.sub(/_/, " ")} by #{surprise_song.artist.titleize.sub(/_/, " ")}!!!!!!!"
+        puts "#{convert_for_user(surprise_song.title)} by #{convert_for_user(surprise_song.artist)}!!!!!!!"
         choice = prompt.yes?("Are you ready, #{lucky_instructor}?")
         if choice 
             puts "3..."
